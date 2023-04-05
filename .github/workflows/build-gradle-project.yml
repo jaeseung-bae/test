@@ -84,7 +84,8 @@ jobs:
         run: |
           pwd
           cd ${{ github.workspace }}
-          ls ${{ github.workspace }}
+          echo "/app/build/reports/jacoco/test/"
+          ls ${{ github.workspace }}/app/build/reports/jacoco/test/
 
       - name: Add coverage to PR
         id: jacoco
