@@ -18,6 +18,11 @@ publishing {
         create<MavenPublication>("mavenJava") {
             groupId = "io.github.jaeseung-bae.sdk"
             artifactId = "finschia-kt"
+//            io.github.finschia.finschia-kt
+//            groupId = "io.github.jaeseung-bae.finschia-kt"
+//            artifactId = "finschia-kt-crypto"
+//            groupId = "io.github.finschia.finschia-kt"
+//            artifactId = "finschia-kt-tx"
             if (System.getProperty("VERSION") != null) {
                 version = System.getProperty("VERSION").substring(1) // without v
             }
@@ -69,8 +74,6 @@ java{
 signing {
     val signingKey: String? by project
     val signingPassword: String? by project
-    println("signingKey=${signingKey}")
-    println("signingPassword=${signingPassword}")
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign(publishing.publications["mavenJava"])
 }

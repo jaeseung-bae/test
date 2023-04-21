@@ -1,7 +1,9 @@
 name: Publish package to Maven Central Repository
 on:
-  release:
-    types: [created]
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+" # Push events to matching v*, i.e. v1.0, v20.15.10
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -26,23 +28,13 @@ jobs:
       - name: List keys
         run: gpg -K
 
-      # - name: Setup Gradle
-      #   uses: gradle/gradle-build-action@v2
-      #   env:
-      #     OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-      #     OSSRH_PW: ${{ secrets.OSSRH_TOKEN }}
-      #     OSSRH_PASSPHRASE: ${{ secrets.OSSRH_PASSPHRASE }}
-      #     RELEASE_VERSION: ${{ github.event.release.tag_name }}
-        # id: setup-gradle
-        # outputs:
-        #   RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
-
       - name: Publish to maven
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PW: ${{ secrets.OSSRH_PW }}
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.OSSRH_SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.OSSRH_PASSPHRASE }}
-          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+          RELEASE_VERSION: ${{ github.ref_name }}
         run: | 
+          echo $RELEASE_VERSION
           ./gradlew publish -DVERSION=$RELEASE_VERSION
