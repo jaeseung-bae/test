@@ -20,6 +20,7 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.OSSRH_SIGNING_KEY }}
         run: |
+          echo $GPG_PRIVATE_KEY
           echo "$OSSRH_SIGNING_KEY" | gpg --import
       
       - name: Get release version
