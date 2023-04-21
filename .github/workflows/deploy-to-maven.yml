@@ -26,15 +26,14 @@ jobs:
 
       - name: List keys
         run: gpg -K
-        
-      - name: Setup Gradle
+
+      - name: Publish to maven
         uses: gradle/gradle-build-action@v2
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PW: ${{ secrets.OSSRH_TOKEN }}
           OSSRH_PASSPHRASE: ${{ secrets.OSSRH_PASSPHRASE }}
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
-      
-      - name: Publish to maven
         run: | 
+          echo $RELEASE_VERSION
           ./gradlew "publish -DVERSION=$RELEASE_VERSION"
