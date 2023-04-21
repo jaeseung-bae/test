@@ -65,13 +65,11 @@ java{
 
 
 signing {
-    val signingKeyId: String? by project
     val signingKey: String? by project
     val signingPassword: String? by project
-    println("signingKeyId=${signingKeyId}")
     println("signingKey=${signingKey}")
     println("signingPassword=${signingPassword}")
-    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+    useInMemoryPgpKeys(signingKey, signingPassword)
     sign(publishing.publications["mavenJava"])
 }
 
