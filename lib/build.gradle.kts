@@ -65,14 +65,10 @@ java{
 
 
 signing {
-    val signingKey = System.getenv("OSSRH_SIGNING_KEY")
-    if (signingKey != null) {
-        val signingPass = System.getenv("OSSRH_PASSPHRASE")
-        val signingKeyId = System.getenv("OSSRH_SIGNING_KEY_ID")
-        useInMemoryPgpKeys(signingKeyId, signingKey, signingPass)
-    } else {
-        useGpgCmd()
-    }
+    val signingKeyId: String? by project
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
     sign(publishing.publications["mavenJava"])
 }
 
