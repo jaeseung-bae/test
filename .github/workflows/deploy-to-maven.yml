@@ -26,12 +26,6 @@ jobs:
 
       - name: List keys
         run: gpg -K
-
-      - name: Get release version
-        id: release
-        uses: actions/github-script@v5
-        env:
-          RELEASE_VERSION: ${{ github.event.release.tag_name }}
         
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
@@ -39,6 +33,7 @@ jobs:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PW: ${{ secrets.OSSRH_TOKEN }}
           OSSRH_PASSPHRASE: ${{ secrets.OSSRH_PASSPHRASE }}
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
       
       - name: Publish to maven
         run: | 
