@@ -31,8 +31,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-          env:
-            RELEASE_VERSION: ${{ steps.release.outputs.result }}
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name/refs\/tags\/v/ }}
         
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
