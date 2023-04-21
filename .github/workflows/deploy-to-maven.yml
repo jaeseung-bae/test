@@ -43,7 +43,8 @@ jobs:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PW: ${{ secrets.OSSRH_TOKEN }}
           OSSRH_PASSPHRASE: ${{ secrets.OSSRH_PASSPHRASE }}
-          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+#          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+          RELEASE_VERSION: v0.2.3-rc0
         run: | 
           echo $RELEASE_VERSION
           ./gradlew publish -DVERSION=$RELEASE_VERSION
