@@ -18,7 +18,9 @@ publishing {
         create<MavenPublication>("mavenJava") {
             groupId = "io.github.jaeseung-bae.sdk"
             artifactId = "finschia-kt"
-            version = System.getProperty("VERSION").substring(1) // without v
+            if (System.getProperty("VERSION") != null) {
+                version = System.getProperty("VERSION").substring(1) // without v
+            }
 
             from(components["java"])
             pom {
