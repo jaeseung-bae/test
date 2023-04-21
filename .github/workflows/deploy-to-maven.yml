@@ -20,7 +20,10 @@ jobs:
       - name: Import signing key
         env:
           GPG_PRIVATE_KEY: ${{ secrets.OSSRH_SIGNING_KEY }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         run: |
+          echo "======"
+          echo $OSSRH_USERNAME
           echo "======"
           echo $GPG_PRIVATE_KEY
           echo "======"
