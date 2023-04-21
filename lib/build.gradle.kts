@@ -68,7 +68,8 @@ signing {
     val signingKey = System.getenv("OSSRH_SIGNING_KEY")
     if (signingKey != null) {
         val signingPass = System.getenv("OSSRH_PASSPHRASE")
-        useInMemoryPgpKeys(signingKey, signingPass)
+        val signingKeyId = System.getenv("OSSRH_SIGNING_KEY_ID")
+        useInMemoryPgpKeys(signingKeyId, signingKey, signingPass)
     } else {
         useGpgCmd()
     }
