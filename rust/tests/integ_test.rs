@@ -1,11 +1,3 @@
-// use adder;
-//
-// #[test]
-// fn add_test() {
-//     let sum = adder::add(1, 2);
-//     assert_eq!(sum, 3);
-// }
-
 use rust;
 
 #[test]
