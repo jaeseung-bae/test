@@ -1,0 +1,24 @@
+name: Build Gradle project
+
+on:
+  push:
+  pull_request:
+  release:
+  deployment:
+
+jobs:
+  build-gradle-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project sources
+        uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Run unittest script
+        run: |
+          cd rust
+          ./scripts/run_unittest.sh
+      - name: Print success
+        run: |
+          echo "Success"
