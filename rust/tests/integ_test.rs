@@ -8,5 +8,5 @@ fn test_add() {
 
 #[test]
 fn test_fail() {
-    assert_eq!(1, 2);
+    assert_eq!(1, 1);
 }

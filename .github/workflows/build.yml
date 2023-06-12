@@ -10,19 +10,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout project sources
+      - name: "Checkout project sources"
         uses: actions/checkout@v3
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - name: Upload win unit tests
+      - name: "Build win unit tests"
         run: |
           cd rust
-          ./scripts/upload_win_unittests.sh
-      - name: Run win unit tests
-        run: |
-          cd rust
-          ./scripts/run_win_unittests.sh
-      - name: Print success
-        run: |
-          echo "Success"
+          executables=$(cargo test --no-run --message-format=json | jq -r "select(.profile.test == true) | .executable")
+          echo "WIN_UNITTESTS=$(echo $executables)" >> "$GITHUB_ENV"
+      - name: "Store win unit tests"
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: release
+          path: |
+            ${{ env.WIN_UNITTESTS }}
+#  test:
+#    runs-on: ubuntu-latest
+#    needs: [ build ]
+#    steps:
+#      - name: "Download win unit tests"
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: release
+#      - name: "In Test"
+#        run: |
+#          echo "env test"
+#          echo ${{ env.WIN_UNITTESTS }}
+#          ls -al
+

@@ -2,7 +2,7 @@
 cargo test --no-run # To check cargo test itself
 
 # Run cargo test and retrieve the executable names
-#executables=$(cargo test --target=x86_64-pc-windows-gnu --no-run --features mocksgx --message-format=json | jq -r "select(.profile.test == true) | .executable")
+#executables=$(cargo test --target=x86_64-pc-windows-gnu --no-run --message-format=json | jq -r "select(.profile.test == true) | .executable")
 executables=$(cargo test --no-run --message-format=json | jq -r "select(.profile.test == true) | .executable")
 
 # Check the exit code of cargo test
