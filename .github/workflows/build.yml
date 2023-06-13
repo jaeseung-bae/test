@@ -49,5 +49,6 @@ jobs:
         run: |
           ls -al
           cd tests/
-          sh rust/scripts/run_win_unittests.sh
+          cp rust/scripts/run_win_unittests.sh .
+          ./run_win_unittests.sh
 
