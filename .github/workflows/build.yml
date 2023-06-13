@@ -43,5 +43,6 @@ jobs:
           name: release
       - name: "In Test"
         run: |
-          sh rust/scripts/run_win_unittest.sh
+          ls -al
+          sh rust/scripts/run_win_unittests.sh
 
