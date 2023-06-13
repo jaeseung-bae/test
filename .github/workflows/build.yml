@@ -33,17 +33,15 @@ jobs:
           name: release
           path: |
             rust/target/debug/deps/
-#  test:
-#    runs-on: ubuntu-latest
-#    needs: [ build ]
-#    steps:
-#      - name: "Download win unit tests"
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: release
-#      - name: "In Test"
-#        run: |
-#          echo "env test"
-#          echo ${{ env.WIN_UNITTESTS }}
-#          ls -al
+  test:
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: "Download win unit tests"
+        uses: actions/download-artifact@v3
+        with:
+          name: release
+      - name: "In Test"
+        run: |
+          sh rust/scripts/run_win_unittest.sh
 
