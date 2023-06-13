@@ -37,6 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ build ]
     steps:
+      - name: "Checkout project sources"
+        uses: actions/checkout@v3
       - name: "Download win unit tests"
         uses: actions/download-artifact@v3
         with:
