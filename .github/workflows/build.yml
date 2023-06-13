@@ -10,8 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      FILES: 'master1.txt master2.txt'
-    steps:        
+      FILES: '/Users/jaeseung.bae/git/test/rust/target/debug/deps/rust-9237314e139c30b5'
+    steps:
       - name: "Checkout project sources"
         uses: actions/checkout@v3
       - uses: actions-rs/toolchain@v1
@@ -21,28 +21,31 @@ jobs:
         run: |
           echo "pwd"
           pwd
-          echo "ls -al"
-          ls -al
           cd rust
           executables=$(cargo test --no-run --message-format=json | jq -r "select(.profile.test == true) | .executable")
-          echo "WIN_UNITTESTS=master1.txt" >> "$GITHUB_ENV"
+          cd target/debug/deps
+          rm -f *.o *.d *.dylib *.rlib *.rmeta
+          echo "WIN_UNITTESTS=$(echo ${executables})" >> "$GITHUB_ENV"
+          echo $WIN_UNITTESTS
+          pwd
+          ls -al
       - name: "Store win unit tests"
         uses: actions/upload-artifact@v3.1.2
         with:
           name: release
           path: |
-            ${{ env.FILES }}
-  test:
-    runs-on: ubuntu-latest
-    needs: [ build ]
-    steps:
-      - name: "Download win unit tests"
-        uses: actions/download-artifact@v3
-        with:
-          name: release
-      - name: "In Test"
-        run: |
-          echo "env test"
-          echo ${{ env.WIN_UNITTESTS }}
-          ls -al
+            /Users/jaeseung.bae/git/test/rust/target/debug/deps/*
+#  test:
+#    runs-on: ubuntu-latest
+#    needs: [ build ]
+#    steps:
+#      - name: "Download win unit tests"
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: release
+#      - name: "In Test"
+#        run: |
+#          echo "env test"
+#          echo ${{ env.WIN_UNITTESTS }}
+#          ls -al
 
