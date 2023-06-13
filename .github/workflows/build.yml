@@ -48,7 +48,4 @@ jobs:
       - name: "In Test"
         run: |
           ls -al
-          cd tests/
-          cp rust/scripts/run_win_unittests.sh .
-          ./run_win_unittests.sh
-
+          sh rust/scripts/run_win_unittests.sh tests
