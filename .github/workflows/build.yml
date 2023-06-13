@@ -43,8 +43,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: release
+          path: |
+            tests/
       - name: "In Test"
         run: |
           ls -al
+          cd tests/
           sh rust/scripts/run_win_unittests.sh
 
